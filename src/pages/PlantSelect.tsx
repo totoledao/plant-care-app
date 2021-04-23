@@ -91,8 +91,7 @@ export function PlantSelect () {
     fetchPlants();
   }
 
-  function handlePlantSelect(plant: PlantsProps) {
-    console.log(plant);
+  function handlePlantSelect(plant: PlantsProps) {    
     navigation.navigate('PlantSave');
   }
 
@@ -156,8 +155,7 @@ export function PlantSelect () {
           renderItem={( {item} ) => (
             <PlantCardPrimary
               data={item}
-             // onPress={() => handlePlantSelect(item)}
-              onPress={() => console.log('Botão Plantas')}
+              onPress={() => handlePlantSelect(item)}              
             />
           )}
           showsVerticalScrollIndicator={false}
