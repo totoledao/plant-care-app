@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/core'
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { Button } from '../componets/Button';
-import { PlantSelect } from '../pages/PlantSelect';
+import { PlantSelect } from './PlantSelect';
 
 export function Confirmation () {
 
