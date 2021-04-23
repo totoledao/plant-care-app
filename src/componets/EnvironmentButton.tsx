@@ -8,7 +8,6 @@ import {
   RectButton,
   RectButtonProps
 } from 'react-native-gesture-handler';
-import { color } from 'react-native-reanimated';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';

@@ -10,9 +10,12 @@ import {
   Platform,
   TouchableWithoutFeedback,
   TouchableWithoutFeedbackBase,
-  Keyboard
+  Keyboard,
+  Alert
 } from 'react-native';
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import { Confirmation } from './Confirmation';
 import { Button } from '../componets/Button';
@@ -42,8 +45,13 @@ export function UserIdentification () {
     setName(value);
   };  
 
-  function handleSubmit() {
-    navigation.navigate('Confirmation')
+  async function handleSubmit() {
+    
+    if (!name) 
+     return Alert.alert('Hey, me conta o seu nome ✌')    
+
+    await AsyncStorage.setItem('@plantmanager:user', name);
+    navigation.navigate('Confirmation')    
   };
 
   return (
