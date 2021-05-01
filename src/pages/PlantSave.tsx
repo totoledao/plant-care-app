@@ -10,7 +10,9 @@ import {
   Image
 } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
-import { useRoute } from '@react-navigation/core'
+import { useRoute } from '@react-navigation/core';
+import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
+import { isBefore, format } from 'date-fns';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -18,25 +20,66 @@ import fonts from '../../styles/fonts';
 import waterDrop from '../assets/waterdrop.png';
 import { Button } from '../componets/Button';
 
+interface Params {
+  plant: {
+    id: string;
+    name: string;
+    about: string;
+    water_tips: string;
+    photo: string;
+    environments: [string];
+    frequency: {
+      times: number;
+      repeat_every: string;
+    }
+  } 
+}
+
+
 export function PlantSave () {
+
+  const [selectedDateTime, setSelectedDateTime] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
+  
+  const route = useRoute();
+  const { plant } = route.params as Params;
+
+  function handleChangeTime(event: Event, dateTime:Date | undefined ) {
+   
+    if (Platform.OS === 'android') {
+      setShowDatePicker(oldState => !oldState);
+    }
+
+    if (dateTime && isBefore(dateTime, new Date())) {
+      setSelectedDateTime(new Date());
+      return Alert.alert('Escolha uma hora no futuro! ⏰')
+    }
+    
+    if (dateTime) {
+      setSelectedDateTime(dateTime)
+    }   
+  }
+
+  function handleOpenDateTimePickerForAndroid() {
+    setShowDatePicker(oldState => !oldState);
+  }
+
   return (
     <View style={styles.container}>
     <View style={styles.plantInfo}>
 
       <SvgFromUri
-        uri=""
+        uri={plant.photo}
         height={150}
         width={150}
       />
 
       <Text style={styles.plantName}>
-        Nome da Planta
+        {plant.name}
       </Text>
 
       <Text style={styles.plantAbout}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-        Repellat rerum earum quae obcaecati.
-        Beatae, illo asperiores quasi tenetur
+        {plant.about}
       </Text>
 
     </View>
@@ -48,14 +91,34 @@ export function PlantSave () {
           style={styles.tipImage}
         />
         <Text style={styles.tipText}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Animi quisquam aperiam aliquam sequi non.
+          {plant.water_tips}
         </Text>
       </View>
 
       <Text style={styles.alertLabel}>
         Escolha o melhor horário para ser lembrado
       </Text>
+
+     {showDatePicker && (
+       <DateTimePicker
+        value={selectedDateTime}
+        mode='time'
+        display='spinner'
+        onChange={handleChangeTime}
+       />
+     )}
+
+     {Platform.OS === 'android' && (
+         <TouchableOpacity
+          style={styles.dataTimePickerButton}
+          onPress={handleOpenDateTimePickerForAndroid}
+        >
+            <Text style={styles.dataTimePickerText}>
+              {`Mudar ${format(selectedDateTime, 'HH:mm')}`} 
+            </Text>
+         </TouchableOpacity>
+       )
+     }
 
       <Button
         style={styles.button}
@@ -135,6 +198,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 16,    
-    height: 56,
+    height: 56
+  },
+  dataTimePickerButton: {
+    width: "100%",
+    alignItems: 'center',
+    paddingVertical: 40
+    
+  },
+  dataTimePickerText: {
+    color: colors.heading,
+    fontSize: 24,
+    fontFamily: fonts.text
   }
 });
