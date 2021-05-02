@@ -10,37 +10,27 @@ import {
   Image
 } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
-import { useRoute } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { isBefore, format } from 'date-fns';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
 import waterDrop from '../assets/waterdrop.png';
+
 import { Button } from '../componets/Button';
+import { PlantProps, savePlant } from '../libs/storage';
 
 interface Params {
-  plant: {
-    id: string;
-    name: string;
-    about: string;
-    water_tips: string;
-    photo: string;
-    environments: [string];
-    frequency: {
-      times: number;
-      repeat_every: string;
-    }
-  } 
+  plant: PlantProps; 
 }
-
 
 export function PlantSave () {
 
   const [selectedDateTime, setSelectedDateTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
   
+  const navigation = useNavigation();
   const route = useRoute();
   const { plant } = route.params as Params;
 
@@ -62,6 +52,28 @@ export function PlantSave () {
 
   function handleOpenDateTimePickerForAndroid() {
     setShowDatePicker(oldState => !oldState);
+  }
+
+  async function handleSavePlant() {
+    try {
+      await savePlant ({
+        ...plant,
+        dateTimeNotification: selectedDateTime
+      })
+
+      navigation.navigate('Confirmation', {
+        title: 'Tudo Certo',
+        subTitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com bastante amor.',
+        buttonTitle: 'Muito obrigado',
+        icon: 'plant',
+        nextScreen:'MyPlants'
+        }      
+      );
+    
+
+    } catch {
+      Alert.alert('Não foi possível salvar 🤔')
+    }
   }
 
   return (
@@ -123,7 +135,7 @@ export function PlantSave () {
       <Button
         style={styles.button}
         title='Cadastrar planta'
-        onPress={() => {}}
+        onPress={handleSavePlant}
       />
 
     </View>
@@ -141,10 +153,10 @@ const styles = StyleSheet.create({
   plantInfo: {
     flex: 1,
     paddingHorizontal: 30,
-    paddingVertical: 50,
+    paddingVertical: 50,   
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.shape,    
+    backgroundColor: colors.shape,      
   },
   plantName: {
     fontSize: 24,
@@ -172,7 +184,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 20,
     position: 'relative',
-    bottom: '25%'
+    bottom: 60
   },
   tipImage: {
     width: 56,
