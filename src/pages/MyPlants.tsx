@@ -70,10 +70,18 @@ export function MyPlants() {
 
     loadStorageData()
 
-  },[])
+  },[handleRemove])
 
   if(loading) {
-    return <Load />
+    return (
+      <View style={styles.container}>
+        <Text style={styles.plantsTitle}>
+          Registre uma planta para começar!
+        </Text>
+        <Load />
+      </View>
+
+    )
   }
 
   return (
@@ -88,7 +96,7 @@ export function MyPlants() {
           style={styles.spotLightImage}
         />
         <Text style={styles.spotLightText}>
-          {nextWatering}
+          {myPlants !== null ? nextWatering : 'Registre uma planta primeiro'}
         </Text>
 
       </View>
