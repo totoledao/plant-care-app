@@ -14,9 +14,9 @@ import ptBR from 'date-fns/esm/locale/pt-BR/index.js';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import waterDrop from '../assets/waterdrop.png';
-import { Header } from '../componets/Header';
-import { Load } from '../componets/Load';
-import { PlantCardSecondary } from '../componets/PlantCardSecondary';
+import { Header } from '../components/Header';
+import { Load } from '../components/Load';
+import { PlantCardSecondary } from '../components/PlantCardSecondary';
 import { PlantProps, loadPlant, removePlant } from '../libs/storage';
 
 export function MyPlants() {

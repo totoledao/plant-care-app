@@ -10,7 +10,7 @@ import { useNavigation, useRoute } from '@react-navigation/core'
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import { Button } from '../componets/Button';
+import { Button } from '../components/Button';
 import { PlantSelect } from './PlantSelect';
 
 interface Params {

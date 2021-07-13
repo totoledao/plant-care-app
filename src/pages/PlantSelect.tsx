@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core'
 
-import { Header } from '../componets/Header';
-import { EnvironmentButton } from '../componets/EnvironmentButton';
-import { PlantCardPrimary } from '../componets/PlantCardPrimary';
-import { Load } from '../componets/Load';
+import { Header } from '../components/Header';
+import { EnvironmentButton } from '../components/EnvironmentButton';
+import { PlantCardPrimary } from '../components/PlantCardPrimary';
+import { Load } from '../components/Load';
 import { PlantSave } from './PlantSave';
 
 import colors from '../../styles/colors';

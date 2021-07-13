@@ -18,7 +18,7 @@ import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import waterDrop from '../assets/waterdrop.png';
 
-import { Button } from '../componets/Button';
+import { Button } from '../components/Button';
 import { PlantProps, savePlant } from '../libs/storage';
 
 interface Params {

@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { Confirmation } from './Confirmation';
-import { Button } from '../componets/Button';
+import { Button } from '../components/Button';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
