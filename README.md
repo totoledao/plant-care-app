@@ -13,10 +13,8 @@
 <br />
 <p align="center">
   <a href="https://github.com/totoledao/plant-care-app">
-    <img src="readmeAssets/PlantManager%20Logo.png" alt="Logo" width="150">
+    <img src="readmeAssets/PlantManager%20Logo.png" alt="PlantManager Logo" width="150">
   </a>
-
-  <h3 align="center">PlantManager</h3>
 
   <p align="center">
     Stop killing your cactuses! 🌵
